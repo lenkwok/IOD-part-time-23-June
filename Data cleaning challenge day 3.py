@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[21]:
+# In[2]:
 
 
 import pandas as pd
@@ -10,32 +10,65 @@ import seaborn as sns
 import datetime
 
 
-# In[2]:
+# In[21]:
 
 
 earthquakes = pd.read_csv("/Users/lenkwok/Desktop/projects/earthquakes.csv")
 
 
-# In[3]:
+# In[4]:
 
 
 earthquakes.head()
 
 
-# In[5]:
+# In[22]:
 
 
 earthquakes['Date'].dtype
 
 
+# In[23]:
+
+
+# Convert date String to datetime format and add to column date_parsed
+earthquakes['date_parsed'] = pd.to_datetime(earthquakes['Date'], format = "%m/%d/%Y", infer_datetime_format= True, utc = True)
+
+
+# In[24]:
+
+
+earthquakes['date_parsed'].head()
+
+
 # In[26]:
 
 
-earthquakes.Date=pd.to_datetime(earthquakes.Date)
+# Check column date_pased
+day_of_month_earthquakes = earthquakes['date_parsed'].dt.day
 
 
-# #Can't work.
-# earthquakes['Date_parsed'] = pd.to_datetime(earthquakes['Date'],format="%d%m%y"
+# In[27]:
 
-# #can't work.
-# earthquakes.Date=pd.to_datetime(earthquakes.Date)
+
+day_of_month_earthquakes
+
+
+# In[28]:
+
+
+# Plot day of month
+day_of_month_earthquakes = day_of_month_earthquakes.dropna()
+
+
+# In[29]:
+
+
+sns.distplot(day_of_month_earthquakes, kde=False, bins=31)
+
+
+# In[ ]:
+
+
+
+
